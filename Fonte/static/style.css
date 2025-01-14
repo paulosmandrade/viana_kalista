@@ -1,0 +1,103 @@
+
+body{
+    background-color: #1F1F1F;
+}
+
+.navbar {
+    background-color: #06427e;
+    padding: 1rem;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-around; /* Espaçamento igual entre os itens */
+    align-items: center; /* Alinhamento vertical */
+  }
+  
+  .navbar-brand{
+    text-decoration: none;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    transition: 0.5s;
+  }
+  
+  .navbar-item:hover {
+    text-decoration: underline;
+    color: rgb(42, 61, 230);
+  }
+  
+  form{
+    background-color: #1F1F1F;
+     padding: 1%;
+  }
+
+  #cabecalho{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #06427e;
+    padding: 1%;
+    text-decoration: underline;
+  }
+
+table{
+    background-color: #1F1F1F; 
+    color: #fff;
+    }
+  
+table thead{
+    background-color: #06427E;
+    }
+
+table tr {
+    border:2px solid #fff;
+    transition: 0.2s;
+}
+
+table tr:hover{
+    background-color: rgb(17, 168, 255);
+}
+
+label{
+    color: #fff;
+}
+
+input{
+    background-color: #1F1F1F;
+}
+
+.form-control {
+    background-color: transparent;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.form-control:hover{
+    background-color: transparent;
+    border: 2px solid aqua;
+}
+
+.form-select{
+    background-color: transparent;
+    color: #fff;
+}
+
+.form-select {
+    background-color: transparent; /* Cor de fundo para o select */
+    color: #ffffff; /* Cor do texto */
+    font-weight: bold; /* Deixa o texto em negrito */
+    padding: 5px;
+    border-radius: 4px; /* Deixa as bordas arredondadas */
+}
+
+/* Estilizar as opções (em navegadores que suportam) */
+.form-select option {
+    background-color: #1F1F1F; /* Cor de fundo para as opções */
+    color: #ffffff; /* Cor do texto das opções */
+    font-weight: normal; /* Não precisa de negrito aqui */
+    transition: 0.5s;
+}
+
+.form-select option:hover{
+    color: rgb(0, 102, 255);
+}

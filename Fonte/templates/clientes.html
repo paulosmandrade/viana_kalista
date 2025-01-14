@@ -1,0 +1,106 @@
+{% extends 'master.html' %}
+
+{% block titulo%}
+    Viana Kalista
+{% endblock %}
+
+{% block conteudo %}
+
+<form method="POST" class="row g-3">
+    {{ form.csrf_token }}
+    
+    <!-- Razão Social -->
+    <div class="col-md-4" style="width: 500px;">
+        <label for="razao_social" class="form-label">Razão Social</label>
+        {{ form.razao_social(class_='form-control') }}
+    </div>
+    
+    <!-- CNPJ -->
+    <div class="col-md-4" style="width: 200px;">
+        <label for="cnpj" class="form-label">CNPJ</label>
+        {{ form.cnpj(class_='form-control') }}
+    </div>
+    
+    <!-- Regime Tributário -->
+    <div class="col-md-4" style="width: 200px;">
+        <label for="regime_tributario" class="form-label">Regime Tributário</label>
+        {{ form.regime_tributario(class_='form-select') }}
+    </div>
+    
+    <!-- Inscrição Estadual -->
+    <div class="col-md-4" style="width: 200px;">
+        <label for="inscricao_estadual" class="form-label">Inscrição Estadual</label>
+        {{ form.inscricao_estadual(class_='form-control') }}
+    </div>
+    
+    <!-- Botão de Envio -->
+    <div class="col-md-4" style="margin-top: auto;">
+        <button type="submit" name="action"  value="cadastrar" class="btn btn-primary">Enviar</button>
+    </div>
+
+    <div class="col-md-1" style="margin-top: auto; margin-left: -590px;">
+        <button type="submit" name="action" value="buscar" class="btn btn-success">Buscar</button>
+    </div>
+
+<h2 id="cabecalho">Tabela Clientes</h2>
+{% if tabela %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Razão Social</th>
+                    <th>CNPJ</th>
+                    <th>Regime tributário</th>
+                    <th>Inscrição Estadual</th>
+                    <th>Data da criação</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody >
+                {% for linha in tabela %}
+                    <tr onclick="preencherDados(this)">
+                        <td>{{ linha.id }}</td>
+                        <td>{{ linha.razao_social }}</td>
+                        <td>{{ linha.cnpj }}</td>
+                        <td>{{ linha.regime_tributario }}</td>
+                        <td>{{ linha.inscricao_estadual }}</td>
+                        <td>{{ linha.creat_at }}</td>
+                        <td>{{ "Ativo" if linha.status else "Inativo" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhuma linha adicionada ainda.</p>
+    {% endif %}
+
+<script>
+    function preencherDados(element) {
+        var row = element.closest('tr');
+        document.getElementById('razao_social').value = row.cells[1].innerText;
+        document.getElementById('cnpj').value = row.cells[2].innerText;
+        document.getElementById('inscricao_estadual').value = row.cells[4].innerText;
+        var regime = row.cells[3].innerText.trim(); // Remover espaços extras
+    var selectElement = document.getElementById('regime_tributario');
+    
+    // Verifica e seleciona o valor correspondente
+    Array.from(selectElement.options).forEach(option => {
+        if (option.value === regime) {
+            selectElement.value = regime;
+        }
+    });
+    }
+
+    function permitirSomenteNumeros(event) {
+        // Impede a inserção de caracteres que não sejam números (excluindo backspace, tab, delete, etc.)
+        const key = event.key;
+        if (!/[0-9]/.test(key) && !["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight"].includes(key)) {
+            event.preventDefault();
+        }
+    }
+
+    const cnpjInput = document.getElementById('cnpj');
+    cnpjInput.addEventListener('keypress', permitirSomenteNumeros);
+</script>
+
+{% endblock %}

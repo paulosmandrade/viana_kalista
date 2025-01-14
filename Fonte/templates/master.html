@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Viana Kalista{% endblock %}</title>
+    <!-- Adicione links para CSS externo (Bootstrap, etc.) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div>
+    <a class="navbar-brand" href="/clientes">Clientes</a>
+    <a class="navbar-brand" href="/transportadoras">Transportadora</a>
+    <a class="navbar-brand" href="/produtos">Produtos</a>
+    <a class="navbar-brand" href="/pedidos">Pedidos</a>
+  </div>
+</nav>
+
+    <!-- Exibição de mensagens flash -->
+    <main class="container-fluid px-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert-container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <!-- Conteúdo principal -->
+        {% block conteudo %}{% endblock %}
+    </main>
+    
+
+    <!-- Scripts externos -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script> 
+    <script>
+        // Tempo em milissegundos (por exemplo, 5 segundos)
+        const tempoDesaparecer = 5000;
+    
+        // Seleciona todos os alertas na página
+        document.querySelectorAll('.alert').forEach(function(alert) {
+            setTimeout(function() {
+                alert.classList.remove('show'); // Remove a classe 'show' para começar o fade out
+                alert.addEventListener('transitionend', () => alert.remove()); // Remove o alerta do DOM após a transição
+            }, tempoDesaparecer);
+        });
+    </script>
+    
+</body>
+</html>
